@@ -1,0 +1,80 @@
+/* 🌟 Premium Dark Theme */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #0D0D0D; /* Premium dark background */
+    color: #E0C097; /* Soft gold text */
+}
+
+/* 🌟 Navbar */
+.navbar {
+    background: rgba(18, 18, 18, 0.9);
+    padding: 12px 20px;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 3px 10px rgba(224, 192, 151, 0.3);
+}
+
+.navbar a {
+    color: #FFD700 !important;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar a:hover {
+    color: #FFF !important;
+    text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8);
+}
+
+/* 🌟 Hero Section */
+.hero {
+    background: url("../ASSETS/13647.webp") no-repeat center;
+    background-size: cover;
+    padding: 120px 20px;
+    text-align: center;
+    position: relative;
+    color: #FFF;
+}
+
+/* 🔥 Hero Shadow Effect */
+.hero:hover {
+    box-shadow: 0px 0px 40px rgba(224, 192, 151, 0.7) inset;
+}
+
+/* 🌟 Buttons - Gold Shine */
+#log {
+    border: 0;
+    background: linear-gradient(45deg, #FFD700, #B8860B);
+    color: #121212;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+#log a {
+    text-decoration: none;
+    color: white;
+}
+
+#log:hover {
+    background: linear-gradient(90deg, #FFD700, #E0C097);
+    box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.8);
+}
+
+/* 🌟 Feature Box */
+.ftbox {
+    background: #1C1C1C;
+    border: 1px solid #444;
+    box-shadow: 0px 9px 13px -1px #FFD700;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* 🌟 Footer */
+footer {
+    background: #1A1A1A;
+    padding: 20px 0;
+    text-align: center;
+    color: #FFD700;
+    box-shadow: 0px -3px 10px rgba(224, 192, 151, 0.3);
+}

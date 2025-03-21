@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% comment %} <link href="{% static 'css/login.css' %}" rel="stylesheet"> {% endcomment %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+body {
+    background-color: #121212;
+    color: gold;
+    font-family: Arial, sans-serif;
+    {% comment %} display: flex; {% endcomment %}
+justify-content: center; 
+    align-items: center;
+}
+.container {
+    max-width: 400px;
+    background: #1e1e1e;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    animation: fadeIn 1s ease-in-out;
+        margin-top: 136px;
+} 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.form-control {
+    background: #2a2a2a;
+    color: gold;
+    border: 1px solid gold;
+    transition: 0.3s;
+}
+.form-control:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+.form-control::placeholder {
+    color: rgba(255, 215, 0, 0.6);
+}
+.btn-primary {
+    background-color: gold;
+    border: none;
+    color: #121212;
+    font-weight: bold;
+    transition: 0.3s;
+    animation: pulse 1.5s infinite;
+}
+.btn-primary:hover {
+    background-color: #d4af37;
+    transform: scale(1.05);
+}
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+    100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+}
+.text-danger {
+    color: #ffcc00 !important;
+}
+a {
+    color: gold;
+    transition: 0.3s;
+}
+a:hover {
+    color: #d4af37;
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <div class="container w-100 py-5">
+        {% if form_type == 'login' %}
+        <div class="login form-control" id="login">
+            {% if messages %}
+                {% for message in messages %} 
+                    <p style="color:red">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <form action="{% url 'login_view' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <h2 class="logttl">LOGIN</h2>
+                    <label for="logusername" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" id="logusername" placeholder="Username"required>
+                    <p class="text-danger" id="errorusername">Please enter your username</p>
+                </div>
+                <div class="mb-3">
+                    <label for="logpass" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="logpass" placeholder="Password" required>
+                    <p class="text-danger" id="passlogerror">Enter password</p>
+                </div>
+                <button type="submit" class="signin btn btn-primary">Sign-in</button>
+                <div class="registerbtn">
+                    <h6>If you are not registered <a href="{% url 'register_view' %}">Click here</a></h6>
+                </div>
+            </form>
+        </div>
+
+        {% elif form_type == 'register' %}
+        <div class="register form-control" id="register">
+            {% if messages %}
+                {% for message in messages %} 
+                    <p style="color:red">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <form action="{% url 'register_view' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <h2 class="regtitle">Register</h2>
+                    <label for="remail" class="form-label">Email</label>
+                    <input type="email" name="remail" class="form-control" id="remail" placeholder="Email"required>
+                    <p class="text-danger" id="erroregemail">Please enter your Email</p>
+
+                    <label for="rusnm" class="form-label">Username</label>
+                    <input type="text" name="rusnm" class="form-control" id="rusnm" placeholder="Username"required>
+                    <p class="text-danger" id="errorregname">Enter your username</p>
+
+                    <label for="regpass" class="form-label">Password</label>
+                    <input type="password" name="regpass" class="form-control" id="regpass" required placeholder="Password">
+                    <p class="text-danger" id="passregerror">Password must be at least 8 characters long and include at least one letter and one number.</p>
+                </div>
+                <button type="submit" class="signin btn btn-primary">Sign-up</button>
+                <div class="logbtn">
+                    <h6>If you already have an account <a href="{% url 'login_view' %}">Click here</a></h6>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+    $(document).ready(function(){
+        // Hide all error messages initially
+        $(".text-danger").hide();
+
+        // Username Validation (for Login)
+        $("#logusername").keyup(function(){
+            let username = $(this).val();
+            let pattern = /^[A-Za-z0-9_]+$/;
+
+            if (!username) {
+                $("#errorusername").show().html("Please enter your username");
+            } else if (!pattern.test(username)) {
+                $("#errorusername").show().html("Username can only contain letters, numbers, and underscores");
+            } else {
+                $("#errorusername").hide();
+            }
+        });
+
+        // Password Validation (for Login)
+        $("#logpass").keyup(function(){
+            let password = $(this).val();
+            let pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+            if (!password) {
+                $("#passlogerror").show().html("Please enter your password");
+            } else if (!pattern.test(password)) {
+                $("#passlogerror").show().html("Password must be at least 8 characters long and include at least one letter and one number.");
+            } else {
+                $("#passlogerror").hide();
+            }
+        });
+
+        // Username Validation (for Registration)
+        $("#rusnm").keyup(function(){
+            let username = $(this).val();
+            let pattern = /^[A-Za-z0-9_]+$/;
+
+            if (!username) {
+                $("#errorregname").show().html("Please enter a username");
+            } else if (!pattern.test(username)) {
+                $("#errorregname").show().html("Username can only contain letters, numbers, and underscores");
+            } else {
+                $("#errorregname").hide();
+            }
+        });
+
+        // Email Validation (for Registration)
+        $("#remail").keyup(function(){
+            let email = $(this).val();
+            let pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!email) {
+                $("#erroregemail").show().html("Please enter your email");
+            } else if (!pattern.test(email)) {
+                $("#erroregemail").show().html("Please enter a valid email");
+            } else {
+                $("#erroregemail").hide();
+            }
+        });
+
+        // Password Validation (for Registration)
+        $("#regpass").keyup(function(){
+            let password = $(this).val();
+            let pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+            if (!password) {
+                $("#passregerror").show().html("Please enter a password");
+            } else if (!pattern.test(password)) {
+                $("#passregerror").show().html("Password must be at least 8 characters long and include at least one letter and one number.");
+            } else {
+                $("#passregerror").hide();
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>

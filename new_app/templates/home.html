@@ -1,0 +1,661 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Accident Prediction System</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/home.css' %}">
+  <!-- ScrollReveal Library -->
+<script src="https://unpkg.com/scrollreveal"></script>
+
+<!-- Custom JS -->
+
+
+     <style>
+       
+        /* 🌟 Premium Dark Theme */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #0D0D0D; /* Premium dark background */
+    color: #E0C097; /* Soft gold text */
+}
+
+/* 🌟 Premium Dark Gradient Navbar */
+.navbar {
+    background: linear-gradient(135deg, #0d0d0d, #1c1c1c);
+   
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 4px 15px rgba(255, 223, 150, 0.2);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 🌟 Navbar Links */
+.navbar a {
+    color: #FFD700;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 12px 18px;
+    position: relative;
+    text-decoration: none;
+    transition: all 0.4s ease-in-out;
+}
+
+/* 🔥 Hover Effect - Glowing Gold Effect */
+.navbar a:hover {
+    color: #FFF;
+    text-shadow: 0px 0px 12px rgba(255, 215, 0, 0.8);
+}
+
+/* 🌟 Animated Underline Effect */
+.navbar a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 0;
+    height: 2px;
+    background: #FFD700;
+    transition: all 0.4s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* 🌟 Scroll Effect - Navbar Shrinks */
+.navbar.scrolled {
+    background: linear-gradient(135deg, #1a1a1a, #222222);
+    padding: 10px 25px;
+    box-shadow: 0px 4px 20px rgba(255, 223, 150, 0.3);
+    transition: all 0.4s ease-in-out;
+}
+
+/* 🚀 Premium Animated Login Button */
+#loginbtn {
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    color: #000;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(255, 165, 0, 0.6);
+}
+
+/* 🔥 Button Hover Effect - Glowing Neon Effect */
+#loginbtn:hover {
+    background: linear-gradient(90deg, #FFA500, #FFD700);
+    color: #fff;
+    box-shadow: 0px 0px 20px rgba(255, 165, 0, 0.8);
+    transform: scale(1.05);
+}
+
+/* 🌟 Button Animation - Shine Effect */
+#loginbtn::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: skewX(-30deg);
+    transition: all 0.6s ease-in-out;
+}
+
+#loginbtn:hover::before {
+    left: 120%;
+}
+
+
+/* 🌟 Hero Section */
+/* 🌟 Hero Section - Premium Styling */
+.hero {
+    background: url("{% static 'img/world-map-with-global-network-vector.jpg' %}") no-repeat center;
+    background-size: cover;
+    padding: 140px 20px;
+    text-align: center;
+    position: relative;
+    color: #FFF;
+    overflow: hidden;
+}
+
+/* 🔥 Dark Overlay for Readability */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    z-index: 1;
+}
+
+/* 🌟 Hero Content */
+.hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+    opacity: 1;
+    background: linear-gradient(90deg, #FFD700, #FF5733, #FFA500, #FFD700); /* Premium Gradient */
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    {% comment %} -webkit-text-fill-color: transparent; {% endcomment %}
+    animation: gradientMove 3s infinite linear;
+}
+
+/* ✨ Gradient Animation */
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+.hero p {
+    font-size: 1.2rem;
+    font-weight: 400;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1.2s ease-in-out forwards;
+}
+
+/* 🌟 Premium Hover Shadow */
+.hero:hover {
+    box-shadow: 0px 0px 60px rgba(255, 215, 0, 0.6) inset;
+    transition: all 0.4s ease-in-out;
+}
+
+/* 🚀 Animated Hero Buttons */
+.hero .btn {
+    font-size: 18px;
+    padding: 12px 28px;
+    margin: 10px;
+    font-weight: bold;
+    border-radius: 50px;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 2;
+}
+
+/* 🔥 Primary Button - Gradient Glow */
+.hero .btn-primary {
+    background: linear-gradient(90deg, #FFD700, #FFA500);
+    border: none;
+    color: black;
+    box-shadow: 0px 5px 15px rgba(255, 165, 0, 0.6);
+}
+
+.hero .btn-primary:hover {
+    background: linear-gradient(90deg, #FFA500, #FFD700);
+    box-shadow: 0px 10px 25px rgba(255, 165, 0, 0.9);
+    transform: scale(1.05);
+}
+
+/* 🔥 Outline Button - Premium Glow Effect */
+.hero .btn-outline-light {
+    border: 2px solid #FFD700;
+    color: #FFD700;
+    background: transparent;
+}
+
+.hero .btn-outline-light:hover {
+    background: #FFD700;
+    color: #000;
+    box-shadow: 0px 5px 20px rgba(255, 215, 0, 0.8);
+    transform: scale(1.05);
+}
+
+/* 🎬 Fade-in Scroll Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🌟 Scroll Reveal Effect */
+.hero {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+.hero.show {
+    opacity: 1;
+    transform: translateY(0);
+} 
+
+
+/* 🌟 Feature Box */
+.ftbox {
+    background: linear-gradient(135deg, #222, #1C1C1C);
+    border: 1px solid rgba(255, 215, 0, 0.3); /* Subtle gold border */
+    box-shadow: 0px 5px 15px rgba(255, 215, 0, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    transition: all 0.4s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ✨ Glowing Hover Effect */
+.ftbox:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.7);
+    border: 1px solid rgba(255, 215, 0, 0.7);
+}
+
+/* 🔥 Feature Icon Styling */
+.feature-icon {
+    font-size: 50px;
+    {% comment %} background: linear-gradient(90deg, #FFD700, #FF5733); {% endcomment %}
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+/* 🎩 Title Styling */
+.ftbox h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #FFD700; /* Premium Gold */
+    text-transform: uppercase;
+}
+
+/* 📜 Paragraph Styling */
+.ftbox p {
+    color: #DDD;
+    font-size: 1rem;
+}
+
+/* 🔄 Scroll Reveal Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ftbox {
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* 🌌 Premium Dark Background */
+#about {
+    background: linear-gradient(135deg, #121212, #1C1C1C);
+    padding: 60px 20px;
+    color: #DDD;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 🎩 Section Title Styling */
+#about h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #FFD700; /* Gold */
+    position: relative;
+}
+
+/* ✨ Title Glow Effect */
+#about h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #FFD700;
+    margin: 10px auto;
+    box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8);
+}
+
+/* 📜 Paragraph Styling */
+#about p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #ffff;
+    max-width: 900px;
+    margin: 0 auto;
+ 
+    transform: translateY(30px);
+    transition: all 0.6s ease-in-out; 
+}
+
+/* 🔄 Scroll Reveal Animation */
+#about p:nth-child(2) {
+    transition-delay: 0.2s;
+}
+#about p:nth-child(3) {
+    transition-delay: 0.4s;
+}
+.show-about p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 🌟 Footer */
+footer {
+    background: #1A1A1A;
+    padding: 20px 0;
+    text-align: center;
+    color: #FFD700;
+    box-shadow: 0px -3px 10px rgba(224, 192, 151, 0.3);
+}
+/* 🌌 Premium Contact Section */
+#contact {
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    color: #DDD;
+    padding: 60px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 🌟 Contact Title */
+#contact h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #FFD700; /* Gold */
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* ✨ Title Underline Effect */
+#contact h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #FFD700;
+    margin: 10px auto;
+    box-shadow: 0px 0px 10px rgba(255, 215, 0, 0.8);
+}
+
+/* 📜 Form Styling */
+#contact form {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(30, 30, 30, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.3);
+}
+
+/* 🎨 Input Fields */
+#contact .form-control {
+    background: transparent;
+    color: #EEE;
+    border: 2px solid #FFD700;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🟡 Glow Effect on Focus */
+#contact .form-control:focus {
+    border-color: #00FFFF;
+    box-shadow: 0px 0px 10px #00FFFF;
+    outline: none;
+}
+
+/* 🔥 Submit Button */
+#contact button {
+    background: linear-gradient(90deg, #FFD700, #FF8C00);
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #121212;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+}
+
+/* 🟡 Button Hover Effect */
+#contact button:hover {
+    background: linear-gradient(90deg, #FF8C00, #FFD700);
+    box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.8);
+    transform: scale(1.05);
+}
+
+/* 🔄 Scroll Reveal Animation */
+#contact form {
+    {% comment %} opacity: 0; {% endcomment %}
+    transform: translateY(30px);
+    transition: all 0.6s ease-in-out;
+}
+.show-contact form {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+     </style>  
+   
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+           
+            <a class="navbar-brand" href="#">Traffic Predictor</a>
+            <div class="img"></div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    {% comment %} <li class="nav-item"><a class="nav-link" href="#visualizations">Visualizations</a></li> {% endcomment %}
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="logbtn">
+                <button id="log"><a href="{% url 'login_view' %}">  login</a></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page Hero Section -->
+    <section class="hero">
+        <h1>Predict Accidents Before They Happen</h1>
+        <p>Leveraging data and AI to create safer roads and smarter cities.</p>
+        <a href="{% url 'login_view' %}" class="btn btn-primary btn-lg">Explore Hotspots</a>
+        <a href="#features" class="btn btn-outline-light btn-lg">Learn More</a>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Key Features</h2>
+            <div class="row text-center">
+                <div class="col-md-4">
+                      <div class="ftbox">
+                        <span class="feature-icon">📍</span>
+                        <h4>Interactive Hotspot Map</h4>
+                        <p>Visualize accident-prone areas in real-time.</p>
+                        </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="ftbox">
+                        <span class="feature-icon">⏱️</span>
+                        <h4>Accident Predictions</h4>
+                        <p>Identify accident-prone times and areas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="ftbox">
+                        <span class="feature-icon">📊</span>
+                        <h4>Data Visualizations</h4>
+                        <p>Analyze accident trends and patterns easily.</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- About Page -->
+      <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">About Us</h2>
+            <p>
+                The Traffic Accident Prediction System is a groundbreaking platform designed to enhance road safety by leveraging
+                historical accident data, live traffic data, and advanced machine learning models. Our mission is to reduce traffic
+                accidents and save lives by providing actionable insights to commuters, city planners, and transportation authorities.
+            </p>
+            <p>
+                By identifying accident-prone hotspots, predicting accident-prone times, and offering data-driven visualizations, our
+                system empowers users with the tools needed to make informed decisions and foster safer roads for everyone.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" class="py-5 bg-light">
+        <div class="container">
+   
+            <h2 class="text-center mb-4">Contact Us</h2>
+        {% if messages %}
+            {% for message in messages %} 
+                <p style="color:red">{{ message }}</p>
+            {% endfor %}
+        {% endif %}   
+            <form action="{% url 'contact_us' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    
+                    <input type="hidden" name="form_type" value="contact_view" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Your name">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Your email">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control"name="message" id="message" rows="5" placeholder="Your message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Traffic Accident Prediction System. All rights reserved.</p>
+            <p>Contact us at <a href="#">support@trafficpredictor.com</a></p>
+        </div>
+    </footer>
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+    let navbarLinks = document.querySelectorAll(".navbar a");
+    let loginButton = document.querySelector("#loginbtn");
+
+    // 🚀 Navbar Hover Animation
+    navbarLinks.forEach(link => {
+        link.addEventListener("mouseenter", function () {
+            link.classList.add("nav-hover");
+        });
+        link.addEventListener("mouseleave", function () {
+            link.classList.remove("nav-hover");
+        });
+    });
+
+    // 🚀 Login Button Animation
+    if (loginButton) {
+        loginButton.addEventListener("mouseenter", function () {
+            loginButton.classList.add("btn-hover");
+        });
+
+        loginButton.addEventListener("mouseleave", function () {
+            loginButton.classList.remove("btn-hover");
+        });
+    }
+
+    // 🌟 Scroll Effect - Navbar Shrinks on Scroll
+    window.addEventListener("scroll", function () {
+        let navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+    // 🌟 Scroll Reveal Effect
+    let heroSection = document.querySelector(".hero");
+    let contactForm = document.querySelector("#contact form");
+    let aboutSection = document.querySelector("#about");
+
+    function revealOnScroll() {
+        let scrollY = window.scrollY + window.innerHeight;
+
+        if (heroSection && scrollY > heroSection.offsetTop + 100) {
+            heroSection.classList.add("show");
+        }
+        if (contactForm && scrollY > contactForm.offsetTop + 100) {
+            contactForm.classList.add("show-contact");
+        }
+        if (aboutSection && scrollY > aboutSection.offsetTop + 100) {
+            aboutSection.classList.add("show-about");
+        }
+    }
+
+    window.addEventListener("scroll", revealOnScroll);
+    revealOnScroll(); // Run once to check the initial state
+});
+
+
+
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

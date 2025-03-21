@@ -1,0 +1,35 @@
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    z-index: 1000;
+    transition: 0.3s;
+}
+.navbar.scrolled {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Animated Buttons */
+.btn {
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+.btn:hover {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 75, 43, 0.8);
+}
+
+/* Predict Section Background Animation */
+.predict-section {
+    background: linear-gradient(-45deg, #1e3c72, #2a5298);
+    animation: gradientBG 5s ease infinite;
+}
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

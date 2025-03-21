@@ -1,0 +1,384 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    {% comment %} <link rel="stylesheet" href="{% static 'css/index.css' %}"> {% endcomment %}
+    <style>
+        body {
+            background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+            font-family: 'Poppins', sans-serif;
+            color: white; 
+            padding-top: 80px; /* Ensure space for the fixed navbar */
+            overflow-x: hidden;
+        }
+        
+        section {
+            padding: 60px 0;
+            text-align: center;
+            scroll-margin-top: 100px; /* Adjust this value based on your navbar height */
+        }
+        
+        
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures navbar is above everything */
+    {% comment %} background: linear-gradient(to right, #0f0f0f, #1a1a1a)!important; {% endcomment %}
+    
+    {% comment %} backdrop-filter: blur(5px); {% endcomment %}
+  
+    padding: 15px 20px;
+}
+
+     
+        
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: cyan !important;
+        }
+        
+        .nav-link {
+            color: white !important;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+        
+        .nav-link:hover {
+            color: cyan !important;
+            text-shadow: 0px 0px 10px cyan;
+        }
+        
+        /* Sections */
+        section {
+            padding: 60px 0;
+            text-align: center;
+        }
+        /* Premium Logout Button */
+        .logbtn {
+            margin-left: 15px;
+        }
+    
+        .logout {
+            display: inline-block;
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: white;
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(255, 69, 0, 0.5);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .logout::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(255, 69, 0, 0.6), transparent);
+            transition: 0.4s ease;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+    
+        .logout:hover::before {
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+        }
+    
+        .logout:hover {
+            background: linear-gradient(90deg, #ff4b2b, #ff416c);
+            box-shadow: 0px 6px 15px rgba(255, 69, 0, 1);
+            transform: scale(1.05);
+        }
+    
+        .logout:active {
+            transform: scale(0.95);
+        }
+        
+        /* Glassmorphism effect for sections */
+        .container {
+            background: rgb(152,8,8);
+background: radial-gradient(circle, rgba(152,8,8,1) 0%, rgba(74,9,9,1) 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.68);
+            backdrop-filter: blur(20px);
+        }
+        
+        /* Buttons */
+        .btn {
+            background: linear-gradient(45deg, cyan, blue);
+            border: none;
+            color: white;
+            font-weight: bold;
+            padding: 12px 25px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            border-radius: 10px;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(45deg, blue, cyan);
+            box-shadow: 0px 0px 15px cyan;
+        }
+        
+
+        
+        /* Map */
+        #mapframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.68);
+        }
+        
+        /* Form inputs */
+        input {
+            background: rgba(221, 1, 1, 0.84) !important;
+            border: none !important;
+            color: white !important;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        input:focus {
+            box-shadow: 0px 0px 10px cyan !important;
+        }
+        
+        /* Data Visualization */
+        canvas {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.68);
+        }
+        .container:hover {
+            transform: scale(1.02);
+            transition: 0.3s ease-in-out;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            transition: 0.3s;
+        }
+        
+        
+    </style>
+</head>
+<body>
+
+   <!-- Header Section -->
+   <header class="navbar navbar-expand-lg navbar-light  position-fixed w-100">
+    <div class="container">
+        <a class="navbar-brand" href="#">Traffic Predictor</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% comment %} <li class="nav-item"><a class="nav-link" href="#">Home</a></li> {% endcomment %}
+                <li class="nav-item"><a class="nav-link" href="#map">Hotspot Map</a></li>
+                {% comment %} <li class="nav-item"><a class="nav-link" href="#predictions">Predictions</a></li> {% endcomment %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="#visualizations">Visualizations</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li> -->
+            </ul>
+        </div>
+        <div class="logbtn">
+            <button id="logout"class="logout"><a href="{% url 'logout_view' %}">  logout</a></button>
+        </div>
+    </div>
+</header>
+
+<br>
+<br>
+
+    <!-- Map Page -->
+    <section id="map" class="py-5">
+        
+        <div class="container">
+            <h2 class="maptxt text-center mb-4">Interactive Hotspot Map</h2>
+            <div class="map-container">
+                <iframe
+                id="mapframe"
+                src=""
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+            </div>
+            <!-- Map goes here (e.g., embedded Google Map or Leaflet.js). -->
+            <script>
+                // Define the latitude and longitude
+                const latitude =  9.5916; // kottayam
+                const longitude = 76.5222; // kottayam
+                const zoomLevel = 14;
+        
+                // Construct the embed URL for OpenStreetMap
+                const openStreetMapUrl =
+        `https://www.openstreetmap.org/export/embed.html?bbox=${longitude -
+        0.05},${latitude - 0.05},${longitude + 0.05},${latitude +
+        0.05}&layer=mapnik&marker=${latitude},${longitude}`;
+        
+                // Update the iframe src dynamically
+                document.getElementById('mapframe').src = openStreetMapUrl;
+            </script>
+            
+            <p class="text-center">Use the map to explore accident-prone areas in your city.</p>
+
+        </div>
+    </section>
+
+    <!-- Predictions Page -->
+    <section id="predictions" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">Accident Predictions</h2>
+            {% if cluster is not None %}
+               <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading text-center">The Predicted Hotspot Cluster is <strong>{{cluster}}</strong></h4>
+               </div>
+                <div class="text_center">
+                    <center><a id="viewOnMapBtn"class="btn btn-success text-center">View on Map</a></center>
+                </div>
+            {% endif %}
+            <br>
+            <form action="{% url 'predict_future_hotspot' %}"method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <h4>Please Enter The Details</h4>
+                    <label for="latitude" class="form-label">Latitude</label>
+                    <input type="text" class="form-control" name="latitude" id="latitude"  placeholder="Enter longitude" required>
+                </div>
+                <div class="mb-3">
+                    <label for="longitude" class="form-label">Longitude</label>
+                    <input type="text" class="form-control" name="longitude" id="longitude" required placeholder="Enter latitude" >
+                </div>
+                <div class="mb-3">
+                    <label for="no_of_vehicles" class="form-label">Number of Vehicles Involved</label>
+                    <input type="number" class="form-control" name="no_of_vehicles" required placeholder="Enter No of Vehicle involved">
+                </div>
+                <div class="mb-3">
+                    <h5>Severity</h5>
+                    <label class="form-label">Fatal (0/1)</label>
+                    <input type="number" class="form-control" name="severity_fatal" required placeholder="Enter Severity Fatal(0/1)">
+                    <label class="form-label">Grievous Injury (0/1)</label>
+                    <input type="number" class="form-control" name="severity_grievous" required placeholder="Enter Severity Fatal(0/1)">
+                </div>
+                <div class="mb-3">
+                    <h5>Road Type</h5>
+                    <label class="form-label">National Highway (0/1)</label>
+                    <input type="number" class="form-control" name="road_type_nh" required placeholder="Enter NH road(0/1)">
+                    <label class="form-label">Residential Street (0/1)</label>
+                    <input type="number" class="form-control" name="road_type_residential" required placeholder="Enter Residential road(0/1)">
+                </div>
+                <div class="mb-3">
+                    <h5>Weather Condition</h5>
+                    <label class="form-label">Clear (0/1)</label>
+                    <input type="number" class="form-control" name="weather_clear" required placeholder="Enter Clear weather(0/1)">
+                    <label class="form-label">Cloudy (0/1)</label>
+                    <input type="number" class="form-control" name="weather_cloudy" required placeholder="Enter Cloudy weather(0/1)">
+                    <label class="form-label">Heavy Rain (0/1)</label>
+                    <input type="number" class="form-control" name="weather_heavy_rain" required placeholder="Enter Heavy Rain(0/1)">
+                    <label class="form-label">Light Rain (0/1)</label>
+                    <input type="number" class="form-control" name="weather_light_rain" required placeholder="Enter Light Rain(0/1)">
+                </div>
+                <button type="submit" class="btn btn-primary">Predict Hotspot</button>
+            </form>
+        </div>
+    </section>
+    <!-- Visualizations Page -->
+    <section id="visualizations" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Data Visualizations & Trends</h2>
+    
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-center">Accident Trends Over Time</h5>
+                    <canvas id="accidentTrendChart"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-center">Accident Severity Distribution</h5>
+                    <canvas id="severityPieChart"></canvas>
+                </div>
+            </div>
+    
+            <p class="text-center mt-4">Analyze trends and gain insights from historical accident data.</p>
+        </div>
+    </section>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let viewOnMapBtn = document.getElementById('viewOnMapBtn');
+            {% if latitude and longitude and cluster is not None %}
+                let lat="{{latitude}}";
+                let lon="{{longitude}}";
+                let cluster="{{cluster}}";
+                if(viewOnMapBtn){
+                    viewOnMapBtn.href=`/map/?latitude=${lat}&longitude=${lon}&cluster=${cluster}`;
+                    
+                }
+            {% endif %}  
+              
+
+      
+         // Accident Trends (Line Chart)
+         new Chart(document.getElementById('accidentTrendChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Accidents Reported',
+                    data: [30, 50, 40, 70, 80, 60],
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+
+        // Severity Distribution (Pie Chart)
+        new Chart(document.getElementById('severityPieChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Non-Fatal', 'Fatal'],
+                datasets: [{ data: [75, 25], backgroundColor: ['green', 'red'] }]
+            },
+            options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+        });
+    });
+
+
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+    
+    
+    </script>
+
+</body>
+</html>
+
+<!-- AIzaSyDOKC03aVGxwDR0ZvcyDx-_1EQ1Lm5GfaM -->

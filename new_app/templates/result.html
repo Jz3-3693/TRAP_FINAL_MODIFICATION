@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Accident Hotspots - OpenStreetMap</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0a0a0a;
+            color: #00ff99;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-top: 20px;
+            color: #00ff99;
+            text-shadow: 0 0 10px #00ff99;
+        }
+
+        #map {
+            height: 500px;
+            width: 90%;
+            margin: 20px auto;
+            border-radius: 12px;
+            border: 2px solid #00ff99;
+            box-shadow: 0px 0px 15px #00ff99;
+        }
+
+        .Visualizationsbtn button {
+            background: rgba(0, 255, 153, 0.2);
+            color: #00ff99;
+            border: 1px solid #00ff99;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            box-shadow: 0 0 10px #00ff99;
+            backdrop-filter: blur(10px);
+        }
+
+        .Visualizationsbtn button:hover {
+            background: #00ff99;
+            color: black;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #00ff99;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Accident Hotspot Map</h1>
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([{{ latitude }}, {{ longitude }}], 12);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var redIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red.png',
+            iconSize: [25, 25],
+            iconAnchor: [12, 25],
+            popupAnchor: [0, -20]
+        });
+
+        var blueIcon = L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_blue.png',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10],
+            popupAnchor: [0, -10]
+        });
+
+        L.marker([{{ latitude }}, {{ longitude }}], {icon: redIcon})
+          .addTo(map)
+          .bindPopup("<b>Latest Predicted Hotspot</b><br>Cluster: {{ cluster }}")
+          .openPopup();
+
+        {% for hotspot in past_hotspots %}
+            L.marker([{{ hotspot.latitude }}, {{ hotspot.longitude }}], {icon: blueIcon})
+              .addTo(map)
+              .bindPopup("<b>Past Accident Location</b>");
+        {% endfor %}
+    </script>
+    
+    <div class="Visualizationsbtn">
+        <button><a href="{% url 'visualizations' %}" style="color: white; text-decoration: none;">Visualizations</a></button>
+    </div>
+</body>
+</html>

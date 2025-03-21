@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accident Trends & Analysis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #1a1a1a, #333);
+            color: #f8f9fa;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Road lane effect */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 6px;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                #f8c630 0px,
+                #f8c630 20px,
+                transparent 20px,
+                transparent 40px
+            );
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-top: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 5px rgba(255, 204, 0, 0.8);
+        }
+
+        .chart-container {
+            width: 80%;
+            margin: 30px auto;
+            background: #222;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(255, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #f8c630;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 30px rgba(255, 0, 0, 0.5);
+        }
+
+        h3 {
+            color: #ffcc00;
+            font-weight: 600;
+            text-shadow: 1px 1px 5px rgba(255, 204, 0, 0.8);
+        }
+
+        img {
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 3px solid #ff4444;
+        }
+
+        /* Traffic light glow effect */
+        .glowing-border {
+            box-shadow: 0px 0px 20px rgba(8, 180, 254, 0.88);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .glowing-border:hover {
+            box-shadow: 0px 0px 30px rgba(255, 0, 0, 0.9);
+        }
+
+        /* Traffic light circles */
+        .traffic-light {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .red { background: red; box-shadow: 0px 0px 10px red; }
+        .yellow { background: yellow; box-shadow: 0px 0px 10px yellow; }
+        .green { background: lime; box-shadow: 0px 0px 10px lime; }
+        
+    </style>
+</head>
+<body>
+
+    <h2>📊 Accident Trends & Analysis</h2>
+    <br>
+    <br>
+
+    <div class="chart-container glowing-border">
+        <h3>📍 Heatmap of Accidents</h3>
+        <img src="{{ heatmap_graph }}" alt="Accident Heatmap">
+    </div>
+
+    <div class="chart-container glowing-border">
+        <h3>📅 Accident Frequency Over Time</h3>
+        <img src="{{ time_trend_graph }}" alt="Accident Time Trend">
+    </div>
+
+    <div class="chart-container glowing-border">
+        <h3>⏰ Accidents by Hour of the Day</h3>
+        <img src="{{ hourly_trend_graph }}" alt="Accident Hourly Trend">
+    </div>
+
+</body>
+</html>
